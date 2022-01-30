@@ -1,0 +1,50 @@
+﻿@model TestResult
+@using statesAndCapitals.Helpers;
+@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-1 fw-bold text-primary">@EvaluationHelpers.CalculateGrade((int)Model.NumberCorrect, (int)Model.TotalQuestions)<span class="display-3 fw-bold">/100</span></h1>
+        <h1 class="display-7 fw-semibold">Received grade for this test</h1>
+        <p class="col-md-8 fs-4">If you feel like trying again you could get a higher grade!</p>
+        <div class="d-flex justify-content-between" style="width: 260px" ;>
+            <input value="Retake test" type="button" class="mr-5 btn btn-primary btn-lg" onclick='window.location.href = "@Url.Action("Test", "Test")"' />
+            <form action="LogOut" method="post">
+                <button type="submit" class="btn btn-outline-primary btn-lg">Log Out</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10 col-lg-10">
+            <div class="border">
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                        <h5>Here you can see your last 10 taken tests and your results.</h5>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.User.TestResults)
+                        {
+                            <tr>
+                                <td>@item.TestDateTime</td>
+                                <td class="d-flex"><h4 class="text-primary">@EvaluationHelpers.CalculateGrade((int)item.NumberCorrect, (int)item.TotalQuestions)</h4><span>/100</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

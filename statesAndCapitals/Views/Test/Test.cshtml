@@ -1,0 +1,37 @@
+﻿@model IEnumerable<statesAndCapitals.Models.State>
+
+@{
+    ViewData["Title"] = "Test";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10 col-lg-10">
+            <div class="border">
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                        <h4>You will now be presented with 10 States of the USA, please type their <span class="text-primary">Capital Cities</span>.</h4>
+                    </div>
+                </div>
+                <form action="Evaluate" method="post">
+                    @foreach (var item in Model)
+                    {
+                        <div class="question bg-white p-3 border-bottom">
+                            <div class="d-flex flex-row align-items-center question-title">
+                                <h5 class="text-primary">@item.StateId. </h5>
+                                <h6 class="mt-1 ml-2">@item.State1</h6>
+                            </div>
+                            <div class="ans ml-2">
+                                <label class="text">
+                                    <input type="text" name="@item.State1" value="">
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white"><button type="submit" class="btn btn-primary border-success align-items-center btn-success">Submit Response<i class="fa fa-angle-right ml-2"></i></button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
